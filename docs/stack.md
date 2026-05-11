@@ -19,34 +19,6 @@ Goal: play Go against a computer program on a physical board.
 - Game engine: GnuGo (probably via GTP); optional hook to OGS later
 - Coordinate map: board grid (A1..T19) → arm XYZ
 
-## One-time setup
-
-All workflows are wrapped in `Taskfile.yml`. Run `task` (no args) to see the
-full list. The most common commands:
-
-```
-task setup                # uv venv + uv pip install -e .
-task calibrate-camera     # pick which USB camera is the overhead board cam
-task calibrate-board      # drag a crop, then click 4 corners on the board
-ls /dev/cu.usbserial-*    # find the arm's serial port
-```
-
-Refresh calibration when something moves:
-
-```
-task calibrate-board -- --corners-only   # re-pick corners, keep the crop
-task calibrate-camera                    # re-pick if USB devices reshuffled
-```
-
-## Smoke tests
-
-```
-task arm                  # interactive REPL (override PORT=...)
-task snap                 # save one camera frame to captures/
-task vision               # full classify pipeline + debug frames
-task vision -- --sigma 4  # tune classifier strictness
-```
-
 ## Per-turn control flow
 
 Pseudocode for the game loop. Each commented line is a primitive that exists
@@ -69,7 +41,3 @@ while not game_over:
             handle_invalid_move()                       # [ ] error recovery
     previous_board = board
 ```
-
-## Roadmap
-
-See `docs/todo.md` for the full checkbox-tracked roadmap and open challenges.

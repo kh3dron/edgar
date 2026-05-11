@@ -13,3 +13,4 @@ dist/
 .mypy_cache/
 captures/
 .camera_index
+.board_config.json

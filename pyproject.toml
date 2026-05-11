@@ -11,6 +11,7 @@ dependencies = [
 [project.scripts]
 edgar-arm = "edgar.cli:main"
 edgar-cam = "edgar.camera:main"
+edgar-vision = "edgar.board_vision:main"
 
 [build-system]
 requires = ["hatchling"]

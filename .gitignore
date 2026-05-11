@@ -14,5 +14,6 @@ dist/
 captures/
 .camera_index
 .board_config.json
+.arm_calibration.json
 
 uv.lock

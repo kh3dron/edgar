@@ -41,3 +41,8 @@ tasks:
     desc: Open the interactive arm REPL on $PORT
     cmds:
       - uv run python -m edgar.cli {{.PORT}}
+
+  calibrate-arm:
+    desc: Jog the arm to the 4 board corners; saves .arm_calibration.json
+    cmds:
+      - uv run python -m edgar.arm_calibration {{.PORT}}

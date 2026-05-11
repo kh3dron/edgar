@@ -334,6 +334,12 @@ class Arm:
             "h": hand,
         })
 
+    # -- high level: peripherals -----------------------------------------
+
+    def light(self, brightness: int) -> None:
+        """T:114 — set the on-arm LED brightness (0-255). 0 = off."""
+        self.send({"T": 114, "led": int(brightness)})
+
     # -- high level: continuous jog ---------------------------------------
 
     def jog_angle(self, joint: int, direction: int, spd: int = 10) -> None:

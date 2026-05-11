@@ -1,0 +1,43 @@
+version: "3"
+
+# Default port for the RoArm-M2-S. Override per-invocation:
+#   task arm PORT=/dev/cu.usbserial-20
+vars:
+  PORT: /dev/cu.usbserial-10
+
+tasks:
+  default:
+    desc: List available tasks
+    cmds:
+      - task --list
+
+  setup:
+    desc: Create uv venv and install edgar in editable mode
+    cmds:
+      - uv venv
+      - uv pip install -e .
+
+  calibrate-camera:
+    desc: Probe USB cameras and save the board camera index to .camera_index
+    cmds:
+      - uv run python -m edgar.camera --select
+
+  calibrate-board:
+    desc: Drag a crop rectangle, then click 4 corners; saves .board_config.json
+    cmds:
+      - uv run python -m edgar.board_vision pick {{.CLI_ARGS}}
+
+  snap:
+    desc: Capture one frame from the configured camera to captures/
+    cmds:
+      - uv run python -m edgar.camera
+
+  vision:
+    desc: Run the full classification pipeline; dumps debug frames to captures/
+    cmds:
+      - uv run python -m edgar.board_vision classify --debug {{.CLI_ARGS}}
+
+  arm:
+    desc: Open the interactive arm REPL on $PORT
+    cmds:
+      - uv run python -m edgar.cli {{.PORT}}
